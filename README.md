@@ -1,3 +1,151 @@
+# Dạng bài tập UDP
+## Chạy server chấm bài UDP
+1. Mở file UdpServer
+
+![image](https://github.com/inusedname/Curr-NetworkProgramming-Java/assets/49682088/ac4bcc0d-2edf-49f1-9847-ddadc0d20024)
+
+2. Có hai hàm ở đây đang ở TODO (tức là bạn phải tự code)
+```java
+    static String createProblem() {
+        // TODO
+        return "";
+    }
+    static String solveProblem(String problem) {
+        // TODO
+        return "";
+    }
+```
+Sau đây là ví dụ cho bài viết hoa tất cả chữ cái đầu tiên:
+```java
+// src/server/ExampleUdpServer.java
+static String createProblem() {
+        Random random = new Random();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        // Generate a random number of words (between 3 and 8)
+        int numWords = random.nextInt(6) + 3;
+
+        for (int i = 0; i < numWords; i++) {
+            // Generate a random word length (between 5 and 10 characters)
+            int wordLength = random.nextInt(6) + 5;
+
+            // Generate a random word with mixed case and alphanumeric characters
+            String randomWord = generateRandomWord(wordLength);
+
+            // Append the word to the string builder
+            stringBuilder.append(randomWord);
+
+            // Add a space between words (except for the last word)
+            if (i < numWords - 1) {
+                stringBuilder.append(" ");
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
+    private static String generateRandomWord(int length) {
+        Random random = new Random();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            // Generate a random character (uppercase letter, lowercase letter, or digit)
+            char randomChar = (char) (random.nextInt(57) + 65);
+
+            // Append the character to the string builder
+            stringBuilder.append(randomChar);
+        }
+
+        return stringBuilder.toString();
+    }
+
+    static String solveProblem(String rawData) {
+        String[] words = rawData.split("\\s");
+        StringBuilder processedData = new StringBuilder();
+
+        for (String word : words) {
+            processedData.append(word.substring(0, 1).toUpperCase()).append(word.substring(1).toLowerCase()).append(" ");
+        }
+        return processedData.toString().trim();
+    }
+```
+# Dạng bài tập TCP
+1. Mở file TcpServer
+
+![image](https://github.com/inusedname/Curr-NetworkProgramming-Java/assets/49682088/c401852f-5790-4d74-ac9d-8321dbecdb12)
+2. Có năm hàm ở đây đang ở TODO (tức là bạn phải tự code)
+```java
+    // Khởi tạo các stream, tuỳ vào dạng bài nào thì hãy gắn cái đó. Ví dụ dạng Data thì nhớ gắn dis và dos
+    static void setupStreams(Socket socket) throws IOException {
+        // TODO
+    }
+
+    // Sinh ra đề bài, output chúng ta quy ước ở dạng "1 293 8192" hoặc "janiw aiojw năndwd".
+    static String createProblem() {
+        // TODO
+        return "";
+    }
+
+    // Giải đề, param answerString chính là hàm createProblem bên trên
+    static String solveProblem(String answerString) {
+        // TODO
+        return "";
+    }
+
+    // Gửi đề bài cho client. Không viết logic phức tạp ở đây, chỉ bao hàm các hàm write...
+    static void sendProblem(String problemRaw) throws IOException {
+        // TODO
+    }
+
+    // Hàm chấm user. Hàm này chạy xong thì sẽ in ra đúng hay sai và tắt server
+    static boolean validate(String problem) {
+        // TODO
+        return false;
+    }
+```
+Sau đây là ví dụ của bài tập tính GCM, LCD, tổng, tích
+```java
+    static void setupStreams(Socket socket) throws IOException {
+        dis = new DataInputStream(socket.getInputStream());
+        dos = new DataOutputStream(socket.getOutputStream());
+    }
+
+    static String createProblem() {
+        Random random = new Random();
+        return random.nextInt(1000) + " " + // a
+                random.nextInt(1000);
+    }
+
+    static String solveProblem(String rawData) {
+        String[] data = rawData.split(" ");
+        int a = Integer.parseInt(data[0]);
+        int b = Integer.parseInt(data[1]);
+        return String.format("%d %d %d %d", getGcd(a, b), getLcm(a, b), a + b, a * b);
+    }
+
+    static void sendProblem(String problem) throws IOException {
+        String[] numbers = problem.split("\\s");
+        dos.writeInt(Integer.parseInt(numbers[0]));
+        dos.writeInt(Integer.parseInt(numbers[1]));
+    }
+
+    static boolean validate(String problem) {
+        String answer = solveProblem(problem);
+        try {
+            int gcd = dis.readInt();
+            int lcm = dis.readInt();
+            int sum = dis.readInt();
+            int product = dis.readInt();
+            String userAnswer = String.format("%d %d %d %d", gcd, lcm, sum, product);
+            System.out.println("Đáp án của bạn: " + userAnswer);
+            return answer.equals(userAnswer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+```
+
 # Dạng bài tập WebService
 > Link tham khảo: [ví dụ](https://gpcoder.com/5615-java-web-services-jax-ws-soap/#Tao_Web_Service_va_tao_Client_truy_cap_Web_service_voi_JAX-WS_API)
 ## Chạy code
