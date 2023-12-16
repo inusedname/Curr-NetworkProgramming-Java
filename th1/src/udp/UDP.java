@@ -3,14 +3,11 @@ package udp;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
-import java.util.Arrays;
 
 public class UDP {
 
-    public static String address = "10.21.135.64";
-    public static int port = 2208;
+    private static String address = "localhost";
+    private static int port = 2208;
 
     private static void send(DatagramSocket socket, String request) throws IOException {
         InetAddress address = InetAddress.getByName(UDP.address);
@@ -26,16 +23,26 @@ public class UDP {
     }
 
     // Viết hoa chữ cái đầu tiên tất cả các từ trong câu
-    /*public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         String request = ";B20DCCN535;932";
         DatagramSocket socket = new DatagramSocket();
 
         send(socket, request);
+
         String resp = receive(socket);
         String requestId = resp.split(";")[0];
         String data = resp.split(";")[1];
-        data = String.join(",", Arrays.stream(data.split("\\s")).map(it -> it.substring(0, 1).toUpperCase() + it.substring(1).toLowerCase()).toList());
-        send(socket, requestId + ";" + data);
+
+        String[] words = data.split("\\s");
+        StringBuilder processedData = new StringBuilder();
+
+        for (String word : words) {
+            processedData
+                    .append(word.substring(0, 1).toUpperCase())
+                    .append(word.substring(1).toLowerCase())
+                    .append(" ");
+        }
+        send(socket, requestId + ";" + processedData.toString().trim());
         socket.close();
     }
 
