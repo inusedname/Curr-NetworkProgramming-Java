@@ -42,7 +42,7 @@ public class ByteStream {
 
     public static void main(String[] args) throws IOException {
         // Kết nối tới server
-        Socket socket = new Socket("10.21.135.64", 807);
+        Socket socket = new Socket("localhost", 2208);
 
         // Tạo luồng vào và ra
         InputStream inputStream = socket.getInputStream();

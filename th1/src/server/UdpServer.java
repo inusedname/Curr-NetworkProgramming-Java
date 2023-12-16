@@ -2,7 +2,6 @@ package server;
 
 
 import javafx.util.Pair;
-import udp.UDP;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -13,20 +12,22 @@ import java.util.*;
 public class UdpServer {
 
     public static int port = 2208;
-    private static final Map<String, String> userIdAndData = new HashMap<>();
+
+    // User Id và đề bài
+    private static final Map<String, String> userIdAndProblem = new HashMap<>();
 
     static String createProblem() {
         // TODO
         return "";
     }
 
-    static String solveProblem(String rawData) {
+    static String solveProblem(String problem) {
         // TODO
         return "";
     }
 
-    static boolean validate(String studentAnswer, String rawData) {
-        return Objects.equals(studentAnswer, solveProblem(rawData));
+    static boolean validate(String studentAnswer, String problem) {
+        return Objects.equals(studentAnswer, solveProblem(problem));
     }
 
     static void loop(DatagramSocket serverSocket) throws IOException {
@@ -39,27 +40,27 @@ public class UdpServer {
             if (studentAnswer.length < 2) return;
             String userId = studentAnswer[0];
             String userData = studentAnswer[1];
-            if (!userIdAndData.containsKey(userId)) {
+            if (!userIdAndProblem.containsKey(userId)) {
                 throw new RuntimeException("Không tìm thấy userId: " + userId);
             } else {
-                boolean result = validate(userData, userIdAndData.get(userId));
+                boolean result = validate(userData, userIdAndProblem.get(userId));
                 if (result) {
                     System.out.println("ACCEPTED");
                 } else {
-                    System.out.println("WRONG ANSWER\n"+ "Đề:\n" + userIdAndData.get(userId) + "\nĐáp án đúng:\n" + solveProblem(userIdAndData.get(userId)) + "\nĐáp án của bạn:\n" + userData);
+                    System.out.println("WRONG ANSWER\n"+ "Đề:\n" + userIdAndProblem.get(userId) + "\nĐáp án đúng:\n" + solveProblem(userIdAndProblem.get(userId)) + "\nĐáp án của bạn:\n" + userData);
                 }
                 System.out.println("=====================================");
-                userIdAndData.remove(userId);
+                userIdAndProblem.remove(userId);
             }
         } else {
             if (!request1.matches(";B20DCCN\\d{3};\\d{3}")) {
                 throw new RuntimeException("Sai định dạng (;B20DCCN535;129): " + request1);
             }
             String userId = UUID.randomUUID().toString().substring(8);
-            userIdAndData.put(userId, createProblem());
+            userIdAndProblem.put(userId, createProblem());
             sendResponse(
                     serverSocket,
-                    String.format("%s;%s", userId, userIdAndData.get(userId)),
+                    String.format("%s;%s", userId, userIdAndProblem.get(userId)),
                     InetAddress.getByName("localhost"),
                     senderPortAndData.getKey()
             );

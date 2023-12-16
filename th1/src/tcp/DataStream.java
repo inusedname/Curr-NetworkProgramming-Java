@@ -24,8 +24,8 @@ public class DataStream {
     }*/
 
     public static void main(String[] args) throws IOException {
-        String address = "10.21.135.64";
-        int port = 807;
+        String address = "localhost";
+        int port = 2208;
 
         Socket socket = new Socket(address, port);
         DataInputStream dis = new DataInputStream(socket.getInputStream());

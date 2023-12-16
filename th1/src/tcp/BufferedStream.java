@@ -33,7 +33,7 @@ public class BufferedStream {
     }*/
 
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("10.21.135.64", 808);
+        Socket socket = new Socket("localhost", 2208);
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
