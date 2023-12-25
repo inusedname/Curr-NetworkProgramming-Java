@@ -1,5 +1,13 @@
 # Dạng bài tập WebService
 > Link tham khảo: [ví dụ](https://gpcoder.com/5615-java-web-services-jax-ws-soap/#Tao_Web_Service_va_tao_Client_truy_cap_Web_service_voi_JAX-WS_API)
+
+## Đề
+- sử dụng hàm User getQuestion() và submitAnswer(User)
+- hãy sửa lại user trên sao cho:
+- tên in hoa chữ đầu tiên, các chữ còn lại nếu là alphabet thì đưa về viết thường
+- ngày sinh ở dạng dd/MM/yyyy, hãy viết lại dưới dạng yyyy/dd/MM
+- CHÚ Ý KHÔNG ĐƯỢC SỬA ID
+
 ## Chạy code
 **B1: Chạy Server**
 - ![image](https://github.com/inusedname/Curr-NetworkProgramming-Java/assets/49682088/aaed4e96-e45a-4d9c-a0dd-7328a5548fad)
