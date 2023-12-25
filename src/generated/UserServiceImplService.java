@@ -68,8 +68,8 @@ public class UserServiceImplService
      *     returns UserService
      */
     @WebEndpoint(name = "UserServiceImplPort")
-    public UserService getUserServiceImplPort() {
-        return super.getPort(new QName("http://server.webservice/", "UserServiceImplPort"), UserService.class);
+    public generated.UserService getUserServiceImplPort() {
+        return super.getPort(new QName("http://server.webservice/", "UserServiceImplPort"), generated.UserService.class);
     }
 
     /**
@@ -80,7 +80,7 @@ public class UserServiceImplService
      *     returns UserService
      */
     @WebEndpoint(name = "UserServiceImplPort")
-    public UserService getUserServiceImplPort(WebServiceFeature... features) {
+    public generated.UserService getUserServiceImplPort(WebServiceFeature... features) {
         return super.getPort(new QName("http://server.webservice/", "UserServiceImplPort"), UserService.class, features);
     }
 

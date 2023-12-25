@@ -30,18 +30,10 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UserArray }
+     * Create an instance of {@link generated.User }
      * 
      */
-    public UserArray createUserArray() {
-        return new UserArray();
-    }
-
-    /**
-     * Create an instance of {@link User }
-     * 
-     */
-    public User createUser() {
+    public generated.User createUser() {
         return new User();
     }
 

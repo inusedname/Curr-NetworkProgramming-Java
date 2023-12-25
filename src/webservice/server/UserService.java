@@ -9,17 +9,8 @@ import javax.jws.soap.SOAPBinding;
 public interface UserService {
  
     @WebMethod
-    int insert(User user);
- 
+    User getQuestion();
+
     @WebMethod
-    boolean update(User user);
- 
-    @WebMethod
-    boolean delete(int id);
- 
-    @WebMethod
-    User get(int id);
- 
-    @WebMethod
-    User[] getAll();
+    void submitAnswer(User user);
 }

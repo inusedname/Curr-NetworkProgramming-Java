@@ -26,64 +26,22 @@ public interface UserService {
 
     /**
      * 
-     * @param arg0
      * @return
      *     returns webservice.server.User
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://server.webservice/UserService/getRequest", output = "http://server.webservice/UserService/getResponse")
-    public User get(
-        @WebParam(name = "arg0", partName = "arg0")
-        int arg0);
+    @Action(input = "http://server.webservice/UserService/getQuestionRequest", output = "http://server.webservice/UserService/getQuestionResponse")
+    public generated.User getQuestion();
 
     /**
      * 
      * @param arg0
-     * @return
-     *     returns boolean
      */
     @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://server.webservice/UserService/updateRequest", output = "http://server.webservice/UserService/updateResponse")
-    public boolean update(
+    @Action(input = "http://server.webservice/UserService/submitAnswerRequest", output = "http://server.webservice/UserService/submitAnswerResponse")
+    public void submitAnswer(
         @WebParam(name = "arg0", partName = "arg0")
         User arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://server.webservice/UserService/deleteRequest", output = "http://server.webservice/UserService/deleteResponse")
-    public boolean delete(
-        @WebParam(name = "arg0", partName = "arg0")
-        int arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://server.webservice/UserService/insertRequest", output = "http://server.webservice/UserService/insertResponse")
-    public int insert(
-        @WebParam(name = "arg0", partName = "arg0")
-        User arg0);
-
-    /**
-     * 
-     * @return
-     *     returns webservice.server.UserArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://server.webservice/UserService/getAllRequest", output = "http://server.webservice/UserService/getAllResponse")
-    public UserArray getAll();
 
 }
