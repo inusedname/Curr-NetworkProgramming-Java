@@ -6,7 +6,6 @@
 package src;
 
 import java.net.MalformedURLException;
-import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -15,10 +14,12 @@ import java.rmi.RemoteException;
  *
  * @author QuangNV
  */
-public class RmiClient {
+public class Client {
     public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
         CalcInf calc = (CalcInf) Naming.lookup("rmi://localhost/cal11");
-        int sum = calc.add(1, 1);
+        User user = calc.getUser();
+        
+        System.out.println(user.name);
     }
     
 }

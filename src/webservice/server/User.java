@@ -7,8 +7,6 @@ public class User {
  
     private Integer id;
     private String username;
-
-    // 16/11/2002
     private String birthday;
 
     public User() {}

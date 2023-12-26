@@ -23,5 +23,9 @@ public class CalcImpl extends UnicastRemoteObject implements CalcInf {
         System.out.printf("a=%d b=%d", a, b);
         return a + b;
     }
-    
+
+    @Override
+    public User getUser() throws RemoteException {
+        return new User(1, "vstd");
+    }
 }
