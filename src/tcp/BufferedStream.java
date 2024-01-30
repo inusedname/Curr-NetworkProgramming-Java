@@ -33,31 +33,18 @@ public class BufferedStream {
     }*/
 
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("localhost", 2208);
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        String s = "jwncpoawnv78)(2n wa*(&30982";
+        s = s.replaceAll("[^a-zA-Z]", "");
+        System.out.println(s);
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.toCharArray()[i];
 
-        writer.write("B15DCCN999;721");
-        writer.flush();
-        String s = reader.readLine();
-        Map<Character, Integer> freq = new HashMap<>();
-        for (Character c: s.toCharArray()) {
-            if (freq.containsKey(c)) {
-                freq.put(c, freq.get(c) + 1);
-            } else {
-                freq.put(c, 1);
-            }
+            // cái này để cho hàm replaceAll bên dưới ko ném excepion
+            if (i + 1 == s.length()) break;
+
+            // xoá toàn bộ xuất hiện char c phía sau vị trí i+1
+            s = s.substring(0, i + 1) + s.substring(i + 1).replaceAll(String.valueOf(c), "");
         }
-        Map<Character, Integer> filtered = freq.entrySet().stream()
-                .filter(entry -> entry.getValue() > 1)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
-                ;
-        String res ="";
-        for(Map.Entry<Character, Integer> entry: filtered.entrySet()) {
-            res += String.format("%c:%d,", entry.getKey(), entry.getValue());
-        }
-        writer.write(res);
-        writer.flush();
-        socket.close();
+        System.out.println(s);
     }
 }

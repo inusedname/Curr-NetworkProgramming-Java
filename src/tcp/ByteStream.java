@@ -2,10 +2,8 @@ package tcp;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ByteStream {
     /*public static void main(String[] args) throws IOException {
@@ -40,6 +38,17 @@ public class ByteStream {
         socket.close();
     }*/
 
+    private static byte[] readFully(InputStream is) throws IOException {
+        byte[] buffer = new byte[4066];
+        ByteArrayOutputStream res = new ByteArrayOutputStream();
+
+        int len;
+        while ((len = is.read(buffer)) != -1) {
+            res.write(buffer, 0, len);
+        }
+        return res.toByteArray();
+    }
+
     public static void main(String[] args) throws IOException {
         // Kết nối tới server
         Socket socket = new Socket("localhost", 2208);
@@ -58,13 +67,12 @@ public class ByteStream {
         String dataFromServer = new String(buffer, 0, bytesRead);
 
         // Tách dữ liệu thành các số nguyên
-        String[] numbers = dataFromServer.split(",");
-        List<Integer> intNumbers = new ArrayList<>();
-        for (int i = 0; i < numbers.length; i++) {
-            intNumbers.add(Integer.parseInt(numbers[i]));
-        }
-        List<Integer> sorted = new ArrayList<>(intNumbers);
-        sorted.sort(Comparator.naturalOrder());
+        List<Integer> sorted = Arrays
+                .stream(dataFromServer.split(","))
+                .mapToInt(Integer::parseInt)
+                .sorted()
+                .boxed()
+                .collect(Collectors.toList());
 
         int hieuNhoNhat = Integer.MAX_VALUE;
         int soThuNhatIndex = -1;
